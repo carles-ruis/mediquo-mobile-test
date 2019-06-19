@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Mediquo Test</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
+    <string name="error_title">ERROR:\u0020</string>
+    <string name="unknown_error">Something wrong happened</string>
+
+    <string name="main_file_read_message">I\'m finished reading file!</string>
+    <string name="main_menu_search">Search</string>
+    <string name="main_menu_search_hint">Search&#8230;</string>
+    <string name="main_menu_open">Open file</string>
+    <string name="main_menu_sort">Sort</string>
+    <string name="main_file_chooser_title">Choose a file</string>
+    <string name="main_file_reading_error">I can\'t read this file</string>
+    <string name="main_file_not_found_error">File not found</string>
+    <string name="main_no_file_manager">Please install a File Manager app</string>
+
+    <string name="main_sort_title">Sort words by</string>
+    <string name="main_sort_insertion">Insertion order</string>
+    <string name="main_sort_alphabetical">Alphabetical</string>
+    <string name="main_sort_appearances">More appearances</string>
+
+    <string name="main_open_file_title">Open file</string>
+    <string name="main_open_short_file">Built-in short file</string>
+    <string name="main_open_large_file">Built-in large file</string>
+    <string name="main_open_chosen_file">Choose file</string>
+
+    <plurals name="item_word_description">
+        <item quantity="one">%1$s appears %2$d time</item>
+        <item quantity="other">%1$s appears %2$d times</item>
+    </plurals>
+</resources>
