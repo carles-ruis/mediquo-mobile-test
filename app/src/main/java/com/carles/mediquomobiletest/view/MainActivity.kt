@@ -1,30 +1,33 @@
 package com.carles.mediquomobiletest.view
 
-import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.Intent.*
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.SearchView
-import android.support.v7.widget.SimpleItemAnimator
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.carles.mediquomobiletest.R
 import com.carles.mediquomobiletest.model.Word
 import com.carles.mediquomobiletest.viewmodel.MainViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val SHORT_TEXTFILE = R.raw.short_textfile
-    private val LARGE_TEXTFILE = R.raw.large_textfile
-    private val STATE_IS_SEARCHING = "state_is_searching"
-    private val STATE_SEARCH_QUERY = "state_search_query"
+    companion object {
+        private const val SHORT_TEXTFILE = R.raw.short_textfile
+        private const val LARGE_TEXTFILE = R.raw.large_textfile
+        private const val STATE_IS_SEARCHING = "state_is_searching"
+        private const val STATE_SEARCH_QUERY = "state_search_query"
+    }
 
     val viewModel by viewModel<MainViewModel>()
     private val adapter = WordsAdapter()
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(main_toolbar)
         main_toolbar.setNavigationOnClickListener { finish() }
 
-        main_recyclerview.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        main_recyclerview.addItemDecoration(DividerItemDecoration(this, VERTICAL))
         (main_recyclerview.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         main_recyclerview.adapter = adapter
     }
@@ -92,16 +95,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        outState?.putBoolean(STATE_IS_SEARCHING, !searchView.isIconified)
-        outState?.putString(STATE_SEARCH_QUERY, searchView.query.toString())
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(STATE_IS_SEARCHING, !searchView.isIconified)
+        outState.putString(STATE_SEARCH_QUERY, searchView.query.toString())
         super.onSaveInstanceState(outState)
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedQueryState =
-            if (savedInstanceState?.getBoolean(STATE_IS_SEARCHING) ?: false) savedInstanceState?.getString(STATE_SEARCH_QUERY) ?: "" else null
+            if (savedInstanceState.getBoolean(STATE_IS_SEARCHING)) savedInstanceState.getString(STATE_SEARCH_QUERY) ?: "" else null
     }
 
     override fun onBackPressed() {
@@ -112,7 +115,8 @@ class MainActivity : AppCompatActivity() {
     private fun showSortOptions() {
         main_toolbar.collapseActionView()
         val options = listOf(R.string.main_sort_insertion, R.string.main_sort_alphabetical, R.string.main_sort_appearances)
-        AlertDialog.Builder(this).setTitle(R.string.main_sort_title)
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.main_sort_title)
             .setItems(getStrings(options)) { _, which -> viewModel.sortWords(options[which]) }
             .setNegativeButton(R.string.cancel) { _, _ -> }
             .setCancelable(false)
@@ -143,7 +147,9 @@ class MainActivity : AppCompatActivity() {
     private fun showOpenFileDialog(cancelable: Boolean = true) {
         main_toolbar.collapseActionView()
         val options = listOf(R.string.main_open_short_file, R.string.main_open_large_file, R.string.main_open_chosen_file)
-        val builder = AlertDialog.Builder(this).setTitle(R.string.main_open_file_title).setCancelable(false)
+        val builder = MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.main_open_file_title)
+            .setCancelable(false)
             .setItems(getStrings(options)) { _, which ->
                 when (options[which]) {
                     R.string.main_open_short_file -> viewModel.openFile(resources.openRawResource(SHORT_TEXTFILE))

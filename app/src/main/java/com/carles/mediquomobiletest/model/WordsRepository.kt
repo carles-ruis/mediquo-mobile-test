@@ -25,8 +25,9 @@ class WordsRepository(val appExecutors: AppExecutors) {
 
     fun updateWordMap(line: String) {
         val words = line.split(' ', '.', ',', ':', ';')
-        words.map { it.trim().toLowerCase() }.filter { it.isNotEmpty() }.forEach { word ->
-            wordMap.get(word)?.apply { times++ } ?: wordMap.put(word, Word(word, wordMap.size))
+        words.map { it.trim().toLowerCase() }
+            .filter { it.isNotEmpty() }
+            .forEach { word -> wordMap.get(word)?.apply { times++ } ?: wordMap.put(word, Word(word, wordMap.size))
         }
     }
 }

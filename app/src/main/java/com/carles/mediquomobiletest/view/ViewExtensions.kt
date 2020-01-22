@@ -1,9 +1,9 @@
 package com.carles.mediquomobiletest.view
 
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int) = LayoutInflater.from(context).inflate(layoutRes, this, false)
 

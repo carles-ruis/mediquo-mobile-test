@@ -1,9 +1,9 @@
 package com.carles.mediquomobiletest.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MutableLiveData
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.carles.carleskotlin.common.livedata.SingleLiveEvent
 import com.carles.mediquomobiletest.R
 import com.carles.mediquomobiletest.model.Word
